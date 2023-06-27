@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sriov
+  annotations :
+    k8s.v1.cni.cncf.io/networks : ' [
+        {
+                "name" : "sriov-network-cu-u01-01-if00" ,
+                "mac" :  "20:04:0f:f1:88:01" ,
+                "ips" :  [ "192.168.10.1/24" , "2001::1/64" ]
+        }
+] '
+spec:
+  containers:
+  - name: sriov-example
+    image: dpdk-app-centos:latest
+    securityContext:
+      privileged: true
+    volumeMounts:
+#    - mountPath: /etc/podnetinfo
+#      name: podnetinfo
+#      readOnly: false
+    - mountPath: /dev/hugepages
+      name: hugepage
+    resources:
+      requests:
+        memory: 1Gi
+        #cpu: "4"
+        openshift.io/intelnics01: '1'
+      limits:
+        hugepages-1Gi: 2Gi
+        #cpu: "4"
+        openshift.io/intelnics01: '1'
+    # Uncomment to control which DPDK App is running in container.
+    # If not provided, l3fwd is default.
+    #   Options: l2fwd l3fwd testpmd
+    env:
+    - name: DPDK_SAMPLE_APP
+      value: "testpmd"
+    #
+    # Uncomment to debug DPDK App or to run manually to change
+    # DPDK command line options.
+    command: ["sleep", "infinity"]
+  volumes:
+#  - name: podnetinfo
+#    downwardAPI:
+#      items:
+#        - path: "labels"
+#          fieldRef:
+#            fieldPath: metadata.labels
+#        - path: "annotations"
+#          fieldRef:
+#            fieldPath: metadata.annotations
+  - name: hugepage
+    emptyDir:
+      medium: HugePages
