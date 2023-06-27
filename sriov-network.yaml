@@ -1,0 +1,12 @@
+apiVersion: sriovnetwork.openshift.io/v1
+kind: SriovNetwork
+metadata:
+  name: sriov-network-cu-u01-01-if00
+  namespace: openshift-sriov-network-operator
+spec:
+  capabilities: '{ "mac": true, "ips": true }'
+  ipam: '{}'
+  networkNamespace: gnb00000001--cu-u000000001
+  resourceName: intelnics01
+  trust: "off"
+  vlan: 1234
