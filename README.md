@@ -79,7 +79,7 @@ EAL:   using IOMMU type 1 (Type 1)
 soft parse-ptype is enabled
 LPM or EM none selected, default LPM on
 Initializing port 0 ... Creating queues: nb_rxq=1 nb_txq=1... Port 0 modified RSS hash function based on hardware support,requested:0xa38c configured:0x88
-Address:** 20:04:0F:F1:88:01 **, Destination:02:00:00:00:00:00, Allocated mbuf pool on socket 1
+Address:**20:04:0F:F1:88:01**, Destination:02:00:00:00:00:00, Allocated mbuf pool on socket 1
 LPM: Adding route 192.18.0.0 / 24 (0)
 LPM: Adding route 2001:200:: / 48 (0)
 txq=1,0,1
